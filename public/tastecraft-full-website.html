@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TasteCraft - Modern Asian Culinary Arts & Fine Dining</title>
+  <meta name="description" content="Experience authentic Asian fine dining with master-crafted dishes, interactive menu, and table reservations.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #FAF7F2;
+      color: #1A1A1A;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-serif-display {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    .plate-shadow {
+      filter: drop-shadow(0 20px 30px rgba(40, 20, 10, 0.14)) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.06));
+    }
+    .plate-shadow-lg {
+      filter: drop-shadow(0 30px 45px rgba(35, 15, 8, 0.18)) drop-shadow(0 12px 18px rgba(0, 0, 0, 0.08));
+    }
+    
+    @keyframes plateRotateSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .hero-rotate-loop {
+      animation: plateRotateSlow 48s linear infinite;
+    }
+
+    .menu-card-anim {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, opacity 0.3s ease;
+    }
+    .menu-card-anim:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+    .menu-card-anim:hover img {
+      transform: scale(1.1);
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f0ebe1; }
+    ::-webkit-scrollbar-thumb { background: #d0c7b7; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e63946; }
+  </style>
+</head>
+<body class="selection:bg-[#E63946] selection:text-white">
+
+  <!-- 1. STICKY NAVBAR -->
+  <header class="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-stone-200/70 transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-[#E63946] flex items-center justify-center text-white font-serif text-lg font-bold shadow-md shadow-[#E63946]/25 group-hover:scale-105 transition-transform duration-300">
+          味
+        </div>
+        <div>
+          <span class="font-serif text-2xl font-bold tracking-tight text-stone-900 block leading-none">TasteCraft</span>
+          <span class="text-[10px] uppercase tracking-widest text-[#E63946] font-semibold">Asian Fine Dining</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-700">
+        <a href="#hero" class="hover:text-[#E63946] transition-colors py-1">Home</a>
+        <a href="#menu" class="hover:text-[#E63946] transition-colors py-1">Menu</a>
+        <a href="#special" class="hover:text-[#E63946] transition-colors py-1">Chef's Special</a>
+        <a href="#about" class="hover:text-[#E63946] transition-colors py-1">Our Story</a>
+        <a href="#testimonials" class="hover:text-[#E63946] transition-colors py-1">Reviews</a>
+        <a href="#contact" class="hover:text-[#E63946] transition-colors py-1">Book Table</a>
+      </nav>
+
+      <a href="#contact" class="bg-[#1C1917] hover:bg-[#E63946] text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
+        Book a Table
+      </a>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center pt-8 pb-16">
+    <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div id="hero-text" class="lg:col-span-6 space-y-6 max-w-xl">
+        <div class="hero-anim-item inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#E63946] bg-[#E63946]/10 px-3.5 py-1.5 rounded-full">
+          ✨ Authentic Asian Culinary Arts
+        </div>
+        <h1 class="hero-anim-item text-5xl sm:text-6xl lg:text-7xl font-bold font-serif tracking-tight text-stone-900 leading-[1.08]">
+          Take a taste <br>
+          <span class="text-[#E63946]">Come join us.</span>
+        </h1>
+        <p class="hero-anim-item text-xl sm:text-2xl font-serif text-stone-700 font-medium italic">
+          Life is so endlessly delicious.
+        </p>
+        <p class="hero-anim-item text-stone-600 text-sm sm:text-base leading-relaxed">
+          Indulge in modern Asian gastronomy where master-pleated dumplings, flash-seared A5 Wagyu, and artisanal noodles come alive with binchotan coals and fiery wok hei precision.
+        </p>
+        <div class="hero-anim-item pt-2 flex flex-wrap items-center gap-4">
+          <a href="#menu" class="inline-flex items-center gap-3 bg-gradient-to-r from-[#E63946] to-[#FF5722] hover:from-[#D62828] text-white font-medium px-8 py-4 rounded-full shadow-lg shadow-[#E63946]/30 hover:shadow-xl hover:-translate-y-1 transition-all">
+            Order Now &rarr;
+          </a>
+          <a href="#contact" class="border border-stone-300 hover:border-stone-800 text-stone-800 font-medium px-6 py-3.5 rounded-full hover:bg-stone-100 transition-colors">
+            Book a Table
+          </a>
+        </div>
+      </div>
+
+      <div id="hero-plate-container" class="lg:col-span-6 relative flex items-center justify-center min-h-[440px] sm:min-h-[500px] cursor-grab">
+        <div class="absolute w-[360px] sm:w-[460px] h-[360px] sm:h-[460px] rounded-full border border-stone-200/80 bg-stone-100/40 pointer-events-none"></div>
+        <div id="hero-tilt-wrapper" class="relative z-20 w-[300px] sm:w-[410px] md:w-[450px] aspect-square rounded-full plate-shadow-lg transition-transform duration-150 ease-out">
+          <div class="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl bg-amber-950/10">
+            <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=900&q=85" alt="Dim Sum Plate" class="hero-rotate-loop w-full h-full object-cover scale-110 pointer-events-none">
+          </div>
+          <div class="absolute -top-6 -left-8 w-[130%] h-6 pointer-events-none transform rotate-[28deg] z-30 drop-shadow-xl">
+            <div class="w-full h-2.5 bg-gradient-to-r from-amber-800 to-amber-950 rounded-full"></div>
+            <div class="w-[95%] h-2.5 bg-gradient-to-r from-amber-800 to-amber-950 rounded-full mt-1.5 ml-2"></div>
+          </div>
+        </div>
+        <div class="absolute -bottom-2 left-6 sm:left-12 z-30 w-24 sm:w-28 h-24 sm:h-28 rounded-full plate-shadow border-4 border-white bg-[#C62828] p-1.5 pointer-events-none">
+          <div class="w-full h-full rounded-full bg-gradient-to-br from-[#E53935] to-[#B71C1C] flex items-center justify-center">
+            <div class="w-6 h-6 rounded-full bg-emerald-500 shadow-sm"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. EXPANDED FOOD MENU SECTION (30 Dishes) -->
+  <section id="menu" class="scroll-reveal-section relative py-24 border-t border-stone-200/70 bg-[#FAF7F2]">
+    <div class="max-w-7xl mx-auto px-6 relative z-20">
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-10">
+        <h2 class="text-4xl sm:text-5xl font-bold font-serif text-stone-900 tracking-tight">Our Premium Dishes</h2>
+        <p class="text-stone-600 text-sm sm:text-base">Explore our expansive authentic menu with handcrafted Asian specialties across all categories.</p>
+        
+        <!-- Category Filter Tabs with Counts -->
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-4">
+          <button onclick="filterCategory('All', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-[#E63946] text-white shadow-md transition-all">All (52)</button>
+          <button onclick="filterCategory('Mains', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all">Mains (14)</button>
+          <button onclick="filterCategory('Soups & Noodles', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all">Soups & Noodles (10)</button>
+          <button onclick="filterCategory('Dim Sum', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all">Dim Sum (10)</button>
+          <button onclick="filterCategory('Desserts', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all">Desserts (9)</button>
+          <button onclick="filterCategory('Drinks', this)" class="category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all">Drinks (9)</button>
+        </div>
+      </div>
+
+      <!-- Dish Grid -->
+      <div id="dish-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-opacity duration-300">
+        
+        <!-- MAINS -->
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=700&q=85" alt="Sichuan Wagyu Wok Bowl" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$28.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Sichuan Wagyu Wok Bowl</h3>
+            <p class="text-xs sm:text-sm text-stone-600">A5 Miyazaki Wagyu flash-seared with lantern chilis, roasted peanuts, and peppercorns.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 620 kcal</span>
+            <button onclick="orderDish('Sichuan Wagyu Wok Bowl')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=700&q=85" alt="Flamed Dragon Eel Roll" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$24.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Flamed Dragon Eel Roll</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crispy tempura prawn and avocado draped with torched unagi eel and tobiko.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 480 kcal</span>
+            <button onclick="orderDish('Flamed Dragon Eel Roll')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=85" alt="Kung Pao Chicken" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$22.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Kung Pao Crispy Chicken</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crisp chicken wok-tossed with red chilis, roasted whole cashews, and sweet soy glaze.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 550 kcal</span>
+            <button onclick="orderDish('Kung Pao Crispy Chicken')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=700&q=85" alt="Imperial Roast Duck" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$32.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Imperial Roast Duck</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Dry-aged duck breast with honey-crackling skin, served with handmade crepes and hoisin.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 680 kcal</span>
+            <button onclick="orderDish('Crispy Imperial Roast Duck')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=700&q=85" alt="Atlantic Salmon" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$26.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Glazed Atlantic Salmon Wok</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Pan-seared salmon fillet glazed with ginger-mirin teriyaki over baby bok choy.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 510 kcal</span>
+            <button onclick="orderDish('Glazed Atlantic Salmon Wok')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85" alt="Bulgogi Short Ribs" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$29.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Korean BBQ Bulgogi Ribs</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Prime flanken-cut short ribs char-grilled with sweet pear soy marinade and kimchi.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 670 kcal</span>
+            <button onclick="orderDish('Korean BBQ Bulgogi Ribs')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=700&q=85" alt="Sweet & Sour Seabass" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$27.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Skin Sweet & Sour Seabass</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Fresh seabass fillet lightly tempura-battered, coated in pineapple reduction and lotus crisps.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 490 kcal</span>
+            <button onclick="orderDish('Crispy Skin Sweet & Sour Seabass')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=85" alt="Stirred Egg Greens" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$14.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Stirred Egg & Garden Greens</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Pasture-raised eggs folded with vine tomatoes, scallion oil, and tender wok greens.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 320 kcal</span>
+            <button onclick="orderDish('Stirred Egg & Garden Greens')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Imperial Pork Chops" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$25.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Glazed Imperial Pork Chops</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crisp Berkshire chops caramelized with aged Chinkiang vinegar and blossom honey.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 590 kcal</span>
+            <button onclick="orderDish('Glazed Imperial Pork Chops')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Tangerine Peel Beef" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$26.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Tangerine Peel Prime Beef</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crisp prime flank steak caramelized in 15-year aged chenpi tangerine glaze and chili pods.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 590 kcal</span>
+            <button onclick="orderDish('Crispy Tangerine Peel Prime Beef')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Char Siu Pork" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$25.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Honey Glazed Berkshire Char Siu</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Berkshire pork collar roasted over red fruitwood with fermented red beancurd and wild honey.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 610 kcal</span>
+            <button onclick="orderDish('Honey Glazed Berkshire Char Siu')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Cumin Lamb" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$27.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Sizzling Mongolian Cumin Lamb</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Thinly sliced tender lamb shoulder flash-tossed with roasted Xinjiang cumin and leek ribbons.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 640 kcal</span>
+            <button onclick="orderDish('Sizzling Mongolian Cumin Lamb')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="General Tso Chicken" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$21.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Imperial General Tso Chicken</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Golden shatter-crisp chicken thigh tossed in tangy ginger-garlic glaze with fresh broccoli.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 530 kcal</span>
+            <button onclick="orderDish('Imperial General Tso Chicken')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Mains">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Claypot Tofu" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$18.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8) 🌱</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Golden Wild Mushroom Claypot Tofu</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Silken egg tofu pillows braised in rich savory mushroom jus with king oyster and snow peas.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 380 kcal</span>
+            <button onclick="orderDish('Golden Wild Mushroom Claypot Tofu')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- SOUPS & NOODLES -->
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=85" alt="Dan Dan Noodles" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$19.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Heritage Dan Dan Noodles</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Hand-pulled noodles tossed in spiced sesame pureé, crispy pork mince, and Sichuan greens.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 530 kcal</span>
+            <button onclick="orderDish('Heritage Dan Dan Noodles')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=700&q=85" alt="Tonkotsu Ramen" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$21.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Slow-Simmered Tonkotsu Ramen</h3>
+            <p class="text-xs sm:text-sm text-stone-600">20-hour rich pork marrow broth with rolled chashu, ramen egg, menma, and nori.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 610 kcal</span>
+            <button onclick="orderDish('Tonkotsu Ramen')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=700&q=85" alt="Spicy Seafood Udon" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$23.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Spicy Seafood Udon Wok</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Sanuki udon noodles bathed in fiery red dashi with jumbo tiger prawns and calamari.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 540 kcal</span>
+            <button onclick="orderDish('Spicy Seafood Udon Wok')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1594998893017-36147cbcae05?auto=format&fit=crop&w=700&q=85" alt="Taiwanese Beef Soup" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$20.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Taiwanese Braised Beef Soup</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Melt-in-mouth beef shank and tendon slow-stewed with star anise, wide wheat noodles.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 580 kcal</span>
+            <button onclick="orderDish('Taiwanese Braised Beef Soup')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=700&q=85" alt="Prawn Wonton Soup" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$17.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Hong Kong Prawn Wonton Soup</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Springy egg noodles in dried flounder broth with jumbo whole-prawn wontons.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 390 kcal</span>
+            <button onclick="orderDish('Hong Kong Prawn Wonton Soup')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Singapore Laksa" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$19.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Spicy Singapore Coconut Laksa</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Rich spiced coconut curry with vermicelli, lemongrass chicken, tofu puffs, quail eggs.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 560 kcal</span>
+            <button onclick="orderDish('Spicy Singapore Coconut Laksa')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Tiger Prawn Pad Thai" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$22.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Artisanal Tamarind Tiger Prawn Pad Thai</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Chewy rice noodles wok-charred with wild tiger prawns, organic tofu, and tamarind pulp.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 560 kcal</span>
+            <button onclick="orderDish('Artisanal Tamarind Tiger Prawn Pad Thai')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Tom Yum Goong" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$20.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Royal Lemongrass Tom Yum Goong</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Spicy & sour prawn broth infused with crushed lemongrass, fresh galangal, and kaffir lime.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 390 kcal</span>
+            <button onclick="orderDish('Royal Lemongrass Tom Yum Goong')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Scallion Oil Noodles" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$15.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Shanghainese Scallion Oil Noodles</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Artisanal noodles tossed in slow-caramelized scallion aroma oil and sweet aged dark soy.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 420 kcal</span>
+            <button onclick="orderDish('Shanghainese Scallion Oil Noodles')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Soups & Noodles">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Kimchi Ramen" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$21.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9) 🌶️</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Spicy Kimchi Seafood Claypot Ramen</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Fiery aged kimchi broth with chewy wavy noodles, Manila clams, squid, and poached egg.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 530 kcal</span>
+            <button onclick="orderDish('Spicy Kimchi Seafood Claypot Ramen')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- DIM SUM -->
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=700&q=85" alt="Truffle Dim Sum" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$18.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">19-Pleat Truffle Dim Sum</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Kurobuta pork, black truffle essence, and hot ginger broth sealed in 19 delicate folds.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 360 kcal</span>
+            <button onclick="orderDish('19-Pleat Truffle Dim Sum')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=700&q=85" alt="Emerald Har Gow" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$16.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crystal Emerald Har Gow</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Translucent tapioca wrappers enfolding tiger prawns, bamboo shoots, and ginger wine.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 280 kcal</span>
+            <button onclick="orderDish('Crystal Emerald Har Gow')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=85" alt="Char Siu Bao" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$14.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Steamed Honey Char Siu Bao</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Pillow-soft steamed yeast buns stuffed with sweet caramelized barbecue pork.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 340 kcal</span>
+            <button onclick="orderDish('Steamed Honey Char Siu Bao')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85" alt="Crispy Spring Rolls" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$13.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Crab & Shiitake Spring Rolls</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Golden shatter-crisp pastry rolled with sweet lump crab meat and wild mushrooms.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 290 kcal</span>
+            <button onclick="orderDish('Crispy Crab & Shiitake Spring Rolls')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=700&q=85" alt="Xiao Long Bao" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$17.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Shanghai Heritage Xiao Long Bao</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Delicate soup dumplings filled with pork and piping hot golden chicken collagen broth.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 350 kcal</span>
+            <button onclick="orderDish('Shanghai Heritage Xiao Long Bao')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Pan-Fried Potstickers" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$15.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Pan-Fried Crispy Potstickers</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Golden-crusted gyoza with crispy lace lattice skirts, garlic chives, minced pork.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 330 kcal</span>
+            <button onclick="orderDish('Pan-Fried Crispy Potstickers')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Siu Mai" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$15.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Golden Roe Pork & Prawn Siu Mai</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Open-topped dumplings crammed with Berkshire pork, tiger prawns, and orange tobiko.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 310 kcal</span>
+            <button onclick="orderDish('Golden Roe Pork & Prawn Siu Mai')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Cheung Fun" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$16.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Net Prawn Rice Roll (Cheung Fun)</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Silky steamed rice sheet wrapped around a crunchy golden netted roll of shrimp.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 340 kcal</span>
+            <button onclick="orderDish('Crispy Net Prawn Rice Roll (Cheung Fun)')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Lo Mai Gai" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$14.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Lotus Leaf Wrapped Sticky Rice (Lo Mai Gai)</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Fragrant sticky rice steamed inside lotus leaves with chicken, lap cheong, and salted egg yolk.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 410 kcal</span>
+            <button onclick="orderDish('Lotus Leaf Wrapped Sticky Rice (Lo Mai Gai)')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Dim Sum">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Scallop Dumplings" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$17.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Pan-Seared Scallop & Emerald Chive Dumplings</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Plump Hokkaido scallops and flat chives pan-crisped to golden translucency.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 290 kcal</span>
+            <button onclick="orderDish('Pan-Seared Scallop & Emerald Chive Dumplings')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=700&q=85" alt="Matcha Fondant" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$14.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Matcha Lava & Sesame Fondant</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Warm Kyoto Uji green tea fondant with molten white chocolate core and black sesame gelato.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 340 kcal</span>
+            <button onclick="orderDish('Matcha Lava & Sesame Fondant')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=85" alt="Mango Pomelo Sago" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$12.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Chilled Mango Pomelo Sago</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Fresh Alfonso mango purée layered with tapioca pearls, sweet coconut milk, and ruby pomelo.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 260 kcal</span>
+            <button onclick="orderDish('Chilled Mango Pomelo Sago')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=700&q=85" alt="Soufflé Cheesecake" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$13.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Japanese Cotton Soufflé Cake</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Airy, melt-in-your-mouth cloud cheesecake served with yuzu berry compote.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 310 kcal</span>
+            <button onclick="orderDish('Japanese Cotton Soufflé Cake')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=85" alt="Sesame Balls" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$10.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.7)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Golden Sesame Red Bean Balls</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crisp glutinous rice balls encrusted with white sesame, filled with warm red bean paste.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 270 kcal</span>
+            <button onclick="orderDish('Golden Sesame Red Bean Balls')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Mango Sticky Rice" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$13.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Coconut Pandan Mango Sticky Rice</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Pandan-infused sweet coconut sticky rice topped with ripe sliced Thai mango.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 320 kcal</span>
+            <button onclick="orderDish('Coconut Pandan Mango Sticky Rice')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Dan Tat Egg Tarts" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$11.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Dan Tat Cantonese Baked Egg Tarts</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Flaky 64-layer laminated puff pastry holding silky, wobbly golden sweet egg custard.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 290 kcal</span>
+            <button onclick="orderDish('Dan Tat Cantonese Baked Egg Tarts')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Matcha Layer Cake" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$14.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (5.0)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Mille Crêpe Uji Matcha Layer Cake</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Twenty paper-thin green tea crêpes layered with light Uji matcha cream and ceremonial snow.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 360 kcal</span>
+            <button onclick="orderDish('Mille Crêpe Uji Matcha Layer Cake')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1587888637140-849b25d80ef9?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Taiyaki Waffles" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$11.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Crispy Hokkaido Taiyaki Fish Waffles</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Warm sea-bream shaped crisp waffles stuffed with silky red adzuki bean paste.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 280 kcal</span>
+            <button onclick="orderDish('Crispy Hokkaido Taiyaki Fish Waffles')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Desserts">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Taro Mochi Soup" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$12.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Purple Taro Coconut Soup with Mini Mochi</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Velvety sweet purple taro soup dotted with chewy miniature pandan mochi pearls.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 290 kcal</span>
+            <button onclick="orderDish('Purple Taro Coconut Soup with Mini Mochi')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- DRINKS -->
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=85" alt="Yuzu Cooler" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$9.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Sparkling Yuzu Blossom Cooler</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Fresh Kochi yuzu citrus, crushed dragonfruit, purple shiso syrup, and sparkling mountain water.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 110 kcal</span>
+            <button onclick="orderDish('Sparkling Yuzu Blossom Cooler')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Brown Sugar Boba" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$8.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Roasted Brown Sugar Boba Milk</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Warm brown sugar caramelized tapioca boba tiger-striped in organic milk.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 280 kcal</span>
+            <button onclick="orderDish('Roasted Brown Sugar Boba Milk')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Iced Matcha Latte" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$8.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Ceremonial Uji Matcha Latte</h3>
+            <p class="text-xs sm:text-sm text-stone-600">First-harvest Kyoto Uji ceremonial matcha whisked fresh, layered with oat milk.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 140 kcal</span>
+            <button onclick="orderDish('Ceremonial Uji Matcha Latte')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Dragonfruit Spritz" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$9.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Dragonfruit Lychee Mint Spritz</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Crushed sweet lychee fruit, fresh red dragonfruit, garden mint leaves, and tonic.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 120 kcal</span>
+            <button onclick="orderDish('Dragonfruit Lychee Mint Spritz')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Peach Oolong" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$7.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Cold-Brewed White Peach Oolong</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Alishan high-mountain oolong cold-steeped for 16 hours with juicy white peach slices.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 85 kcal</span>
+            <button onclick="orderDish('Cold-Brewed White Peach Oolong')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Passionfruit Green Tea" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$8.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Passionfruit Jasmine Green Tea Sparkler</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Jasmine green tea shaken with fresh passionfruit pulp, lime juice, and aloe vera jelly.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 105 kcal</span>
+            <button onclick="orderDish('Passionfruit Jasmine Green Tea Sparkler')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Thai Iced Tea" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$8.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.9)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Royal Spiced Thai Iced Milk Tea</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Rich Ceylon black tea brewed with star anise and cardamom, poured over crushed ice.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 240 kcal</span>
+            <button onclick="orderDish('Royal Spiced Thai Iced Milk Tea')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Smoked Plum Soda" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$7.50</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.7)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Imperial Smoked Plum & Mint Soda</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Traditional Suanmeitang reduction from smoked plums, hawthorn berries, and soda.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 95 kcal</span>
+            <button onclick="orderDish('Imperial Smoked Plum & Mint Soda')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="dish-item menu-card-anim bg-white rounded-3xl p-7 border border-stone-200 shadow-xs flex flex-col justify-between group cursor-pointer" data-category="Drinks">
+          <div class="relative w-48 h-48 mx-auto my-2 rounded-full overflow-hidden border-4 border-stone-100 plate-shadow">
+            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=700&q=85" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=85'" alt="Osmanthus Jasmine Tea" class="w-full h-full object-cover transition-transform duration-700 ease-out">
+            <span class="absolute bottom-1 right-1 bg-stone-900 text-white text-xs font-bold px-3 py-1 rounded-full group-hover:bg-[#E63946] transition-colors">$7.00</span>
+          </div>
+          <div class="text-center pt-4 space-y-2">
+            <div class="text-amber-500 text-xs">★★★★★ (4.8)</div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 group-hover:text-[#E63946] transition-colors">Artisan Osmanthus Golden Jasmine Tea</h3>
+            <p class="text-xs sm:text-sm text-stone-600">Steeped silver-needle jasmine blossoms layered with sweet golden osmanthus florets.</p>
+          </div>
+          <div class="pt-6 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">🔥 15 kcal</span>
+            <button onclick="orderDish('Artisan Osmanthus Golden Jasmine Tea')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-md transition-all">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CHEF'S SPECIAL & STORY SECTION -->
+  <section id="special" class="scroll-reveal-section relative py-28 border-t border-stone-200/60 bg-[#FAF7F2]">
+    <div class="max-w-7xl mx-auto px-6 relative z-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 flex items-center justify-center">
+          <div class="relative w-[300px] sm:w-[420px] aspect-square rounded-full plate-shadow-lg">
+            <div class="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl">
+              <img id="chef-special-plate" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=85" alt="Chef Special Bowl" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute top-1/4 -right-8 w-[110%] h-4 pointer-events-none transform -rotate-[32deg] z-30 drop-shadow-lg">
+              <div class="w-full h-2 bg-gradient-to-r from-amber-700 to-amber-950 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 space-y-6 max-w-xl">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#E63946] bg-[#E63946]/10 px-3.5 py-1.5 rounded-full">
+            ★ Chef's Master Selection
+          </div>
+          <h2 class="text-4xl sm:text-5xl font-bold font-serif text-stone-900 tracking-tight leading-tight">
+            Heritage Dan Dan <br><span class="text-[#E63946]">Artisanal Noodles</span>
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            Pulled fresh daily, bathed in 14-spice botanical chili oil and aged sesame puree, topped with crispy Kurobuta pork. A legendary Chengdu street masterwork reinvented for modern gastronomy.
+          </p>
+          <div class="pt-2">
+            <button onclick="orderDish('Heritage Dan Dan Noodles')" class="bg-[#E63946] hover:bg-[#D62828] text-white text-sm font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#E63946]/30 hover:scale-105 active:scale-95 transition-all">
+              Order Specialty Dish ($19.00)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ABOUT US / STORY & STATS -->
+  <section id="about" class="scroll-reveal-section relative py-28 border-t border-stone-200/60 bg-[#FAF7F2]">
+    <div class="max-w-7xl mx-auto px-6 relative z-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#E63946] bg-[#E63946]/10 px-3.5 py-1.5 rounded-full">
+            Our Heritage Story
+          </div>
+          <h2 class="text-4xl sm:text-5xl font-bold font-serif text-stone-900 tracking-tight leading-tight">
+            Where Ancient Wok Craft Meets Modern Elegance
+          </h2>
+          <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+            Founded over two decades ago by Master Chef Kenji Sato, TasteCraft honors the sacred nuances of regional Asian gastronomy while elevating every dish into fine-dining art.
+          </p>
+        </div>
+        <div class="lg:col-span-6">
+          <div class="rounded-3xl overflow-hidden plate-shadow border-4 border-white">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Dining Room" class="w-full h-80 object-cover">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-16 mt-16 border-t border-stone-200">
+        <div class="text-center p-6 bg-white rounded-2xl border border-stone-200 hover:-translate-y-1 transition-transform">
+          <span class="text-4xl sm:text-5xl font-bold font-serif text-[#E63946] block">50+</span>
+          <p class="text-xs uppercase tracking-wider text-stone-500 font-semibold pt-1">Artisanal Dishes</p>
+        </div>
+        <div class="text-center p-6 bg-white rounded-2xl border border-stone-200 hover:-translate-y-1 transition-transform">
+          <span class="text-4xl sm:text-5xl font-bold font-serif text-[#E63946] block">25+</span>
+          <p class="text-xs uppercase tracking-wider text-stone-500 font-semibold pt-1">Years Legacy</p>
+        </div>
+        <div class="text-center p-6 bg-white rounded-2xl border border-stone-200 hover:-translate-y-1 transition-transform">
+          <span class="text-4xl sm:text-5xl font-bold font-serif text-[#E63946] block">15+</span>
+          <p class="text-xs uppercase tracking-wider text-stone-500 font-semibold pt-1">Master Chefs</p>
+        </div>
+        <div class="text-center p-6 bg-white rounded-2xl border border-stone-200 hover:-translate-y-1 transition-transform">
+          <span class="text-4xl sm:text-5xl font-bold font-serif text-[#E63946] block">28k+</span>
+          <p class="text-xs uppercase tracking-wider text-stone-500 font-semibold pt-1">Happy Guests</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TESTIMONIALS SLIDER -->
+  <section id="testimonials" class="scroll-reveal-section relative py-28 border-t border-stone-200/60 bg-[#FAF7F2] text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl sm:text-5xl font-bold font-serif text-stone-900 mb-8">What Our Guests Say</h2>
+      <div class="bg-white rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-md">
+        <span class="font-serif text-7xl text-[#E63946]/25 leading-none block mb-2">“</span>
+        <p class="text-stone-700 text-base sm:text-lg leading-relaxed italic max-w-2xl mx-auto">
+          "While performing in town, TasteCraft was our culinary haven. The 19-Pleat Truffle Dim Sum and Wagyu wok bowls are pure magic. We can't wait to return!"
+        </p>
+        <div class="text-amber-500 text-sm pt-4">★★★★★</div>
+        <div class="pt-4 font-serif font-bold text-stone-900">Paula Abdul</div>
+        <p class="text-xs text-[#E63946]">Music Artist & Guest</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. TABLE RESERVATION FORM -->
+  <section id="contact" class="scroll-reveal-section relative py-28 border-t border-stone-200/60 bg-[#FAF7F2]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="bg-white rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-xl">
+        <div class="text-center space-y-2 mb-8">
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-stone-900">Book A Tasting Table</h2>
+          <p class="text-stone-600 text-sm">Reserve your fine-dining experience with our culinary masters.</p>
+        </div>
+        <form onsubmit="handleReserve(event)" class="space-y-4 max-w-xl mx-auto">
+          <input type="text" required placeholder="Your Full Name" class="w-full bg-stone-50 px-4 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-[#E63946]">
+          <div class="grid grid-cols-3 gap-3">
+            <select class="w-full bg-stone-50 px-3 py-3 rounded-xl border border-stone-300 text-sm">
+              <option>2 Guests</option>
+              <option>4 Guests</option>
+              <option>6 Guests</option>
+              <option>8 Guests</option>
+            </select>
+            <input type="date" required value="2026-10-15" class="w-full bg-stone-50 px-3 py-3 rounded-xl border border-stone-300 text-xs">
+            <select class="w-full bg-stone-50 px-3 py-3 rounded-xl border border-stone-300 text-xs">
+              <option>19:00 PM</option>
+              <option>19:30 PM</option>
+              <option>20:30 PM</option>
+            </select>
+          </div>
+          <textarea rows="2" placeholder="Special Requests / Dietary allergies..." class="w-full bg-stone-50 px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
+          <button type="submit" class="w-full bg-[#E63946] hover:bg-[#D62828] text-white font-semibold py-3.5 rounded-full shadow-lg shadow-[#E63946]/30 hover:scale-[1.01] active:scale-98 transition-all cursor-pointer">
+            Confirm Table Reservation
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. COMPREHENSIVE FOOTER -->
+  <footer class="border-t border-stone-200 bg-white py-12 text-center text-xs text-stone-500">
+    <div class="max-w-7xl mx-auto px-6 space-y-4">
+      <div class="flex items-center justify-center gap-2">
+        <span class="w-8 h-8 rounded-full bg-[#E63946] text-white flex items-center justify-center font-bold">味</span>
+        <span class="font-serif text-xl font-bold text-stone-900">TasteCraft</span>
+      </div>
+      <p>428 Lotus Blossom Way, Culinary Arts District · Open Tuesday–Sunday 11:30 AM – 10:30 PM</p>
+      <p>© 2026 TasteCraft Asian Fine Dining. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo("#hero-text > *", { opacity: 0, y: 35 }, { opacity: 1, y: 0, duration: 1, stagger: 0.16, ease: "power3.out" });
+
+    gsap.utils.toArray(".scroll-reveal-section").forEach(sec => {
+      gsap.fromTo(sec, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: sec, start: "top 85%" }
+      });
+    });
+
+    gsap.to("#chef-special-plate", {
+      rotation: 120,
+      ease: "none",
+      scrollTrigger: { trigger: "#chef-special-plate", start: "top 85%", end: "bottom 15%", scrub: 1.5 }
+    });
+
+    const container = document.getElementById("hero-plate-container");
+    const tiltWrapper = document.getElementById("hero-tilt-wrapper");
+    if (container && tiltWrapper) {
+      container.addEventListener("mousemove", (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const tiltX = (y / (rect.height / 2)) * -12;
+        const tiltY = (x / (rect.width / 2)) * 12;
+        tiltWrapper.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      });
+      container.addEventListener("mouseleave", () => {
+        tiltWrapper.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll(".category-btn").forEach(b => {
+        b.className = "category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-white text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all";
+      });
+      btn.className = "category-btn px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-[#E63946] text-white shadow-md transition-all";
+
+      const grid = document.getElementById("dish-grid");
+      grid.style.opacity = "0.2";
+      grid.style.transform = "scale(0.98)";
+
+      setTimeout(() => {
+        document.querySelectorAll(".dish-item").forEach(item => {
+          if (cat === 'All' || item.dataset.category === cat) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        grid.style.opacity = "1";
+        grid.style.transform = "scale(1)";
+      }, 180);
+    }
+
+    function handleReserve(e) {
+      e.preventDefault();
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+      alert("Table Reserved! Check your email for booking confirmation.");
+    }
+
+    function orderDish(name) {
+      confetti({ particleCount: 40, spread: 50, origin: { y: 0.8 } });
+      alert(`Added "${name}" to your cart!`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "TasteCraft - Asian Culinary Landing",
+  "description": "A modern, high-end animated Asian cuisine and fine dining landing page with GSAP animations, 3D interactive dishes, and parallax ingredients.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
